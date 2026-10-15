@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [HideInInspector] public float speed = 400f;
     [HideInInspector] public float bulletRadius = 25f;
     [HideInInspector] public float coreRadius = 35f;
+    [HideInInspector] public int damage = 1;   // この弾のダメージ
 
     RectTransform m_Rt;
     RectTransform m_Canvas;
@@ -27,7 +28,9 @@ public class Bullet : MonoBehaviour
             if (Vector2.Distance(m_Rt.anchoredPosition, core.anchoredPosition) < bulletRadius + coreRadius)
             {
                 m_Hit = true;
-                Debug.Log("HIT!");
+                if (GameManager.Instance != null) GameManager.Instance.TakeDamage(damage);
+                Destroy(gameObject);   // 当たった弾は消す
+                return;
             }
         }
 

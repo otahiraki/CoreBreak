@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="96" viewBox="0 0 1536 96" shape-rendering="crispEdges">
+<!-- Transparent center by design -->
+<g transform="scale(1 0.75)" fill="#00dceb"><path d="M32 0h1472v8H32zM32 120h1472v8H32zM0 32h8v64H0zM1528 32h8v64h-8zM16 8h16v8H16zM1504 8h16v8h-16zM16 112h16v8H16zM1504 112h16v8h-16zM8 16h8v16H8zM1520 16h8v16h-8zM8 96h8v16H8zM1520 96h8v16h-8z"/>
+<path fill="#71ffff" d="M40 1h1456v2H40zM1 40h2v48H1z"/>
+<path fill="#071622" d="M40 9h1456v6H40zM40 113h1456v6H40zM9 40h6v48H9zM1521 40h6v48h-6z"/>
+<path fill="#007391" d="M48 15h1440v3H48zM48 110h1440v3H48zM15 48h3v32h-3zM1518 48h3v32h-3z"/>
+<path fill="#d0ffff" d="M52 10h1432v1H52zM10 52h1v24h-1z"/>
+</g>
+<!-- gold checker corner chips -->
+<g transform="scale(1 0.75)" fill="#ffbe26"><path d="M0 0h32v32H0zM1504 0h32v32h-32zM0 96h32v32H0zM1504 96h32v32h-32z"/></g>
+<g transform="scale(1 0.75)" fill="#a66815"><path d="M8 0h8v8H8zM24 0h8v8h-8zM0 8h8v8H0zM16 8h8v8h-8zM8 16h8v8H8zM24 16h8v8h-8zM0 24h8v8H0zM16 24h8v8h-8zM1512 0h8v8h-8zM1496 0h8v8h-8zM1528 8h8v8h-8zM1512 8h8v8h-8zM1520 16h8v8h-8zM1496 16h8v8h-8zM1528 24h8v8h-8zM1512 24h8v8h-8zM8 96h8v8H8zM24 96h8v8h-8zM0 104h8v8H0zM16 104h8v8h-8zM8 112h8v8H8zM24 112h8v8h-8zM0 120h8v8H0zM16 120h8v8h-8zM1512 96h8v8h-8zM1496 96h8v8h-8zM1528 104h8v8h-8zM1512 104h8v8h-8zM1520 112h8v8h-8zM1496 112h8v8h-8zM1528 120h8v8h-8zM1512 120h8v8h-8z"/></g>
+<g transform="scale(1 0.75)" fill="#ffec93"><path d="M16 8h8v8h-8zM1512 8h8v8h-8zM16 112h8v8h-8zM1512 112h8v8h-8z"/></g>
+<g transform="scale(1 0.75)" fill="#00dceb"><path d="M24 24h8v8h-8zM1528 24h8v8h-8zM24 96h8v8h-8zM1528 96h8v8h-8z"/></g>
+</svg>

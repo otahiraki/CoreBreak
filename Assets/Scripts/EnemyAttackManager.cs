@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemyAttackManager : MonoBehaviour
 {
     [Header("Refs")]
-    public GameObject bulletPrefab; // 弾Prefab
-    public RectTransform spawnArea;  // Canvas
-    public RectTransform core;       // CoreDot
+    public GameObject bulletPrefab;
+    public RectTransform spawnArea;
+    public RectTransform core;
 
     [Header("Hit radii")]
     public float bulletRadius = 25f;
@@ -21,7 +21,7 @@ public class EnemyAttackManager : MonoBehaviour
 
     void Start()
     {
-        m_Attacks = new List<AttackBase> { rain }; // ★後でここに攻撃を足す
+        m_Attacks = new List<AttackBase> { rain };
         StartCoroutine(Loop());
     }
 
@@ -29,11 +29,16 @@ public class EnemyAttackManager : MonoBehaviour
     {
         while (true)
         {
-            yield return null;   // ← 追加：毎ループ最低1フレーム進める(暴走フリーズ防止)
+            yield return null;
+
+            // 避けフェーズになるまで待つ（攻撃フェーズ中は弾を出さない）
+            while (GameManager.Instance != null && !GameManager.Instance.IsDodgePhase)
+                yield return null;
+
             int i = PickNext();
             m_Last = i;
             Debug.Log("Attack start: " + m_Attacks[i].GetType().Name);
-            yield return StartCoroutine(m_Attacks[i].Run(this)); // ★終わるまで待つ
+            yield return StartCoroutine(m_Attacks[i].Run(this));
         }
     }
 
@@ -41,7 +46,7 @@ public class EnemyAttackManager : MonoBehaviour
     {
         if (m_Attacks.Count <= 1) return 0;
         int i;
-        do { i = Random.Range(0, m_Attacks.Count); } while (i == m_Last); // 直前と同じは避ける
+        do { i = Random.Range(0, m_Attacks.Count); } while (i == m_Last);
         return i;
     }
 }

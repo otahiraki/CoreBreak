@@ -6,6 +6,7 @@ public class EnemyAttackManager : MonoBehaviour
 {
     [Header("Refs")]
     public GameObject bulletPrefab;
+    public GameObject laserPrefab;          // ← 追加
     public RectTransform spawnArea;
     public RectTransform core;
 
@@ -15,13 +16,14 @@ public class EnemyAttackManager : MonoBehaviour
 
     [Header("Attacks")]
     public RainAttack rain = new RainAttack();
+    public LaserAttack laser = new LaserAttack();   // ← 追加
 
     List<AttackBase> m_Attacks;
     int m_Last = -1;
 
     void Start()
     {
-        m_Attacks = new List<AttackBase> { rain };
+        m_Attacks = new List<AttackBase> { rain, laser };  // ← laser登録
         StartCoroutine(Loop());
     }
 
@@ -30,11 +32,8 @@ public class EnemyAttackManager : MonoBehaviour
         while (true)
         {
             yield return null;
-
-            // 避けフェーズになるまで待つ（攻撃フェーズ中は弾を出さない）
             while (GameManager.Instance != null && !GameManager.Instance.IsDodgePhase)
                 yield return null;
-
             int i = PickNext();
             m_Last = i;
             Debug.Log("Attack start: " + m_Attacks[i].GetType().Name);

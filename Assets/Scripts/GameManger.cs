@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     public enum Phase { Dodge, Attack }   // 避け / 攻撃 の2フェーズ
 
     [Header("Player")]
-    public int maxHP = 10;
+    public int maxHP = 5;
+    public HitFeedback hitFeedback;  
+    public int CurrentHP => m_HP;
 
     [Header("Break Gauge")]
     public float maxGauge = 10f;
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (m_GameOver) return;
+        if (hitFeedback != null) hitFeedback.Play();
         m_HP -= amount;
         Debug.Log("HP: " + m_HP + " / " + maxHP);
         if (m_HP <= 0) { m_HP = 0; m_GameOver = true; Debug.Log("GAME OVER"); Time.timeScale = 0f; }

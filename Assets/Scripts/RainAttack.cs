@@ -5,7 +5,7 @@ using UnityEngine;
 public class RainAttack : AttackBase
 {
     public float duration = 5f;
-    public float interval = 0.3f;
+    public float interval = 0.1f;
     public float bulletSpeed = 400f;
 
     public override IEnumerator Run(EnemyAttackManager m)
@@ -24,6 +24,7 @@ public class RainAttack : AttackBase
             var rt = (RectTransform)go.transform;
             rt.localScale = Vector3.one;
             rt.anchoredPosition = pos;
+
             var b = go.GetComponent<Bullet>();
             b.core = m.core;
             b.direction = Vector2.down;

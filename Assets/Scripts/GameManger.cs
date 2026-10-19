@@ -12,9 +12,17 @@ public class GameManager : MonoBehaviour
     public HitFeedback hitFeedback;  
     public int CurrentHP => m_HP;
 
+    [Header("Enemy")]
+    public int enemyMaxHP = 10;
+    int m_EnemyHP;
+    public float EnemyHpRatio => (enemyMaxHP <= 0) ? 0f : (float)m_EnemyHP / enemyMaxHP;
+
     [Header("Break Gauge")]
     public float maxGauge = 10f;
     public float gaugeDrainPerSecond = 2f;
+
+    [Header("Attack")]
+    public int attackPower = 1;   // 1回のSpaceで与えるダメージ
 
     [Header("Attack Phase")]
     public float attackDuration = 3f;      // 攻撃フェーズの長さ（今は空の時間）
@@ -22,6 +30,7 @@ public class GameManager : MonoBehaviour
     int m_HP;
     float m_Gauge;
     bool m_GameOver;
+    bool m_Win;
     Phase m_Phase;
 
     // 外に見せる情報（読むだけ）
@@ -33,16 +42,25 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         m_HP = maxHP;
+        m_EnemyHP = enemyMaxHP;
         m_Gauge = maxGauge;
         m_Phase = Phase.Dodge;
         Time.timeScale = 1f;
     }
 
-    void Update()
+        void Update()
     {
-        if (m_GameOver) return;
-        if (m_Phase != Phase.Dodge) return;    // 避けフェーズ中だけゲージが減る
-        ReduceGauge(gaugeDrainPerSecond * Time.deltaTime);
+        if (m_GameOver || m_Win) return;
+
+        if (m_Phase == Phase.Dodge)
+        {
+            ReduceGauge(gaugeDrainPerSecond * Time.deltaTime);
+        }
+        else // 攻撃フェーズ
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                DamageEnemy(attackPower);
+        }
     }
 
     public void ReduceGauge(float amount)
@@ -76,5 +94,19 @@ public class GameManager : MonoBehaviour
         m_HP -= amount;
         Debug.Log("HP: " + m_HP + " / " + maxHP);
         if (m_HP <= 0) { m_HP = 0; m_GameOver = true; Debug.Log("GAME OVER"); Time.timeScale = 0f; }
+    }
+
+        public void DamageEnemy(int amount)
+    {
+        if (m_Phase != Phase.Attack || m_GameOver || m_Win) return;
+        m_EnemyHP -= amount;
+        Debug.Log("Enemy HP: " + m_EnemyHP + " / " + enemyMaxHP);
+        if (m_EnemyHP <= 0)
+        {
+            m_EnemyHP = 0;
+            m_Win = true;
+            Debug.Log("WIN!");
+            Time.timeScale = 0f;
+        }
     }
 }
